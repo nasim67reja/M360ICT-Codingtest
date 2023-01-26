@@ -5,10 +5,15 @@ import FilterBy from "../components/FilterBy";
 const Home = () => {
   return (
     <div>
-      <FilterBy/>
+      <FilterBy />
       <PaginationC />
-      <footer style={{margin:"5rem 0",padding:"2rem 0"}} className="container shadow center">
-        This is footer
+      <footer>
+        <div
+          style={{ margin: "5rem 0", padding: "2rem 0" }}
+          className="container shadow center"
+        >
+          This is footer
+        </div>
       </footer>
     </div>
   );
