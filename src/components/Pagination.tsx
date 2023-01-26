@@ -5,6 +5,7 @@ import { useGetFlightsQuery } from '../services/flightApi';
 import { Flight } from '../models/flight.model';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card, Skeleton, Switch } from 'antd';
+import { useSelector } from 'react-redux';
 
 
 // const PaginationC: React.FC = () => <Pagination onChange={onChange} total={50} />;
@@ -16,14 +17,12 @@ const PaginationC = () => {
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [loading, setLoading] = useState(false);
-  const onChange = (checked: boolean) => {
-    setLoading(!checked);
-  };
+
+  const filterBy = useSelector((state: any) => state.filter.filter);
 
   const { data, error, isLoading, isSuccess } = useGetFlightsQuery()
-  // if (isSuccess)
-  //   console.log(data.length);
 
+  console.log(data)
 
 
   return <>
@@ -47,7 +46,13 @@ const PaginationC = () => {
           <div>
             <div className='grid grid-4-cols gap-3'>
               {
-                data.slice((page - 1) * size, (size * page)).map((flight, i) =>
+                data.filter(el => {
+                  if (filterBy === true) return el.upcoming === true;
+                  else if (filterBy === "launch-fail") return el.launch_success === false;
+                  else if (filterBy === "launch-success") return el.launch_success === true;
+                  else if (filterBy === "all") return el;
+                  return el;
+                }).slice((page - 1) * size, (size * page)).map((flight, i) =>
                   <Card key={i} className='shadow'
                     hoverable
                     bodyStyle={{ padding: "1rem" }}
