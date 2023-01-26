@@ -17,15 +17,3 @@ export const flightApi = createApi({
 });
 export const { useGetFlightsQuery } = flightApi;
 export const { useGetFlightByNumberQuery } = flightApi;
-// export const flightsApi = createApi({
-//   baseQuery: fetchBaseQuery({
-//     baseUrl: "https://api.spacexdata.com/v3/launches",
-//   }),
-//   endpoints: (builder) => {
-//     flights: builder.query<Flight[], void>({
-//       query: () => "/",
-//     });
-//   },
-// });
-
-// export const { useflightsQuery } = flightsApi;

@@ -25,43 +25,58 @@ const PaginationC = () => {
   //   console.log(data.length);
 
 
-console.log(data)
 
   return <>
-    <div>
+    <div className='container'>
+      {
+        isLoading && <div style={{ minHeight: "100vh", marginTop: "5rem" }}>
+          <Skeleton loading={isLoading} avatar active>
+          </Skeleton>
+          <Skeleton loading={isLoading} avatar active>
+          </Skeleton> <Skeleton loading={isLoading} avatar active>
+          </Skeleton>
+          <Skeleton loading={isLoading} avatar active>
+          </Skeleton>
+          <Skeleton loading={isLoading} avatar active>
+          </Skeleton> <Skeleton loading={isLoading} avatar active>
+          </Skeleton>
+        </div>
+      }
       {
         isSuccess && (
           <div>
-            <div className='grid grid-4-cols gap-2'>
+            <div className='grid grid-4-cols gap-3'>
               {
                 data.slice((page - 1) * size, (size * page)).map((flight, i) =>
                   <Card key={i} className='shadow'
-                  hoverable
-                  cover={<img alt="example" src={flight.links.mission_patch_small}/>}
-                    style={{padding:"1rem", width: 280, }}
-                    // actions={[
-                    //   <SettingOutlined key="setting" />,
-                    //   <EditOutlined key="edit" />,
-                    //   <EllipsisOutlined key="ellipsis" />,
-                    // ]}
+                    hoverable
+                    bodyStyle={{ padding: "1rem" }}
                   >
-                    
-                    <Skeleton loading={loading} avatar active>
+                    <div className='flex flex-col 
+                    gap-1 items-center'>
+                      <img style={{ width: "85%" }} src={flight.links.mission_patch} alt={flight.mission_name} />
+                    </div>
+                    <Skeleton loading={isLoading} avatar active>
                       <Meta
-                        avatar={<Avatar src={flight.links.mission_patch_small} />}
                         title={flight.mission_name}
                         description="This is the description"
                       />
                       <p>Hello world</p>
+
                     </Skeleton>
                   </Card>
+
                 )
               }
             </div>
-            <Pagination total={data.length} pageSize={size} current={page} onChange={(page) => setPage(page)} onShowSizeChange={(current: number, size: number) => {
-              setSize(size);
-              // console.log(current,size)
-            }} />
+            <Pagination
+              style={{ textAlign: "end", marginTop: "1.5rem", fontSize: "1rem" }}
+              total={data.length}
+              pageSize={size}
+              current={page}
+              onChange={(page) => setPage(page)} onShowSizeChange={(current: number, size: number) =>
+                setSize(size)
+              } />
           </div>
         )
       }
