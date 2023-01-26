@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import App from "./App";
 import "./index.css";
+import "antd/dist/reset.css";
 import { store } from "./store";
 
 const container = document.getElementById("root")!;
