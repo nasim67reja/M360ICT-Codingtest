@@ -12,7 +12,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/single" element={<SingleLaunch />} />
+        <Route path="/:flight_num" element={<SingleLaunch />} />
       </Routes>
     </>
   );

@@ -78,3 +78,9 @@ body {
 .grid-4-cols {
   grid-template-columns: repeat(4, 1fr);
 }
+
+/* margin */
+.my-2 {
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}

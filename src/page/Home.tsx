@@ -7,10 +7,7 @@ import Searching from "../components/Searching";
 const Home = () => {
   return (
     <div>
-      <div
-        className="container flex justify-between"
-        style={{ margin: "4rem 0" }}
-      >
+      <div className="container flex justify-between my-2">
         <Searching />
         <FilterBy />
       </div>
