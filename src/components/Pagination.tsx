@@ -54,7 +54,7 @@ const PaginationC = () => {
         isSuccess && (
           <div>
             <div className='grid grid-4-cols gap-3'>
-              {data.length === 0 && <div>No launching ...</div>}
+              
               {
                 data.filter(el => {
                   if (filterBy === true) return el.upcoming === true;
@@ -84,14 +84,12 @@ const PaginationC = () => {
                     gap-1 items-center'>
                       <img style={{ width: "85%" }} src={flight.links.mission_patch} alt={flight.mission_name} />
                     </div>
-                    <Skeleton loading={isLoading} avatar active>
                       <Meta
                         title={truncateString(flight.mission_name, 10)}
                         description="This is the description"
                       />
                       <p>Hello world</p>
 
-                    </Skeleton>
                   </Card>
 
                 )

@@ -4,7 +4,10 @@
 //   upcoming:boolean;
 //   launch_year:number;
 // }
-
+export interface Option{
+  value:string;
+  label:string;
+}
 
 export interface Flight {
   flight_number: number;

@@ -13,7 +13,7 @@ const FilterBy = () => {
   };
 
   return (
-    <Space wrap className="container">
+    <Space wrap>
       <Text>Filter By :</Text>
       <Select
         defaultValue="All Launch"

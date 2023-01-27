@@ -50,7 +50,7 @@ body {
   justify-content: center;
 }
 .justify-between {
-  justify-content: space-between;
+  justify-content: space-between !important;
 }
 .items-center {
   align-items: center;

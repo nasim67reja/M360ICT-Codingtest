@@ -1,11 +1,16 @@
 import React from "react";
+
 import PaginationC from "../components/Pagination";
 import FilterBy from "../components/FilterBy";
+import Searching from "../components/Searching";
 
 const Home = () => {
   return (
-    <div>
-      <FilterBy />
+    <div className="container">
+      <div className="flex justify-between" style={{ margin: "4rem 0" }}>
+        <Searching />
+        <FilterBy />
+      </div>
       <PaginationC />
       <footer>
         <div
