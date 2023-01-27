@@ -6,16 +6,19 @@ import Searching from "../components/Searching";
 
 const Home = () => {
   return (
-    <div className="container">
-      <div className="flex justify-between" style={{ margin: "4rem 0" }}>
+    <div>
+      <div
+        className="container flex justify-between"
+        style={{ margin: "4rem 0" }}
+      >
         <Searching />
         <FilterBy />
       </div>
       <PaginationC />
-      <footer>
+      <footer className="shadow">
         <div
           style={{ margin: "5rem 0", padding: "2rem 0" }}
-          className="container shadow center"
+          className="container  center"
         >
           This is footer
         </div>
