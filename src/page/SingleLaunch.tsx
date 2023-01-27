@@ -13,14 +13,21 @@ const SingleLaunch = () => {
   const { data, isLoading, isError, isSuccess } = useGetFlightByNumberQuery(
     num
   );
-
+  if (
+    data &&
+    data.rocket &&
+    data.rocket.second_stage &&
+    data.rocket.second_stage.payloads
+  ) {
+    console.log(data.rocket.second_stage.payloads[0]);
+  }
   return (
     <div>
-      <div className="container">
+      <div className="container text-xl">
         {isSuccess && (
           <>
             <Space direction="vertical">
-              <Title level={2}>{data.mission_name}</Title>
+              <Title level={1}>{data.mission_name}</Title>
               <Text>Mission launch in {data.launch_year}</Text>
               <Text>Launch {data.launch_success ? "Succesfully" : "Fail"}</Text>
             </Space>
@@ -33,27 +40,51 @@ const SingleLaunch = () => {
                 />
               </Col>
               <Col span={12} style={{ padding: "6rem 0rem" }}>
-                <div className="flex flex-col gap-05">
+                <div className="flex flex-col gap-05 ">
                   <div>
-                    <Text>Deatails :</Text>
+                    <Text className="bold mr-1 text-xl">Deatails :</Text>
                     <Text>{data.details}</Text>
                   </div>
 
                   <div>
-                    <Text>Launch date :</Text>
+                    <Text className="bold mr-1 text-xl">Launch date :</Text>
                     <Text>{dateFormateFunc(data.launch_date_utc)}</Text>
                   </div>
                   <div>
-                    <Text>Launch site :</Text>
+                    <Text className="bold mr-1 text-xl">Launch site :</Text>
                     <Text>{data.launch_site.site_name_long}</Text>
                   </div>
                   <div>
-                    <Text>Upcoming :</Text>
+                    <Text className="bold mr-1 text-xl">Upcoming :</Text>
                     <Text>{data.upcoming ? "Yes" : "No"}</Text>
                   </div>
                   <div>
-                    <Text>Rocket name :</Text>
+                    <Text className="bold mr-1 text-xl">Rocket name :</Text>
                     <Text>{data.rocket.rocket_name}</Text>
+                  </div>
+                  <div>
+                    <Text className="bold mr-1 text-xl">
+                      Rocket Nationality :
+                    </Text>
+                    <Text>
+                      {data.rocket.second_stage.payloads &&
+                        data.rocket.second_stage.payloads[0].nationality}
+                    </Text>
+                  </div>
+                  <div>
+                    <Text className="bold mr-1 text-xl">manufacturer :</Text>
+                    <Text>
+                      {data.rocket.second_stage.payloads &&
+                        data.rocket.second_stage.payloads[0].manufacturer}
+                    </Text>
+                  </div>
+                  <div>
+                    <Text className="bold mr-1 text-xl">Customers :</Text>
+                    <Text>
+                      {data.rocket.second_stage.payloads &&
+                        data.rocket.second_stage.payloads[0].customers &&
+                        data.rocket.second_stage.payloads[0].customers[0]}
+                    </Text>
                   </div>
                 </div>
               </Col>
