@@ -1,10 +1,22 @@
 import React from "react";
 import { useParams } from "react-router";
 import { useGetFlightByNumberQuery } from "../services/flightApi";
-import { Space, Typography, Col, Row } from "antd";
+import { Space, Typography, Col, Row, Skeleton, Divider, Button } from "antd";
 import { dateFormateFunc } from "../models/Reuse";
+import { Link } from "react-router-dom";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import FooterC from "../components/Footer";
 
 const { Text, Title } = Typography;
+
+const Line: React.FC<any> = ({ data, title }) => {
+  return (
+    <div>
+      <Text className="bold mr-05 text-xl">{title}</Text>
+      <Text>{data}</Text>
+    </div>
+  );
+};
 
 const SingleLaunch = () => {
   const param = useParams();
@@ -13,86 +25,139 @@ const SingleLaunch = () => {
   const { data, isLoading, isError, isSuccess } = useGetFlightByNumberQuery(
     num
   );
-  if (
-    data &&
-    data.rocket &&
-    data.rocket.second_stage &&
-    data.rocket.second_stage.payloads
-  ) {
-    console.log(data.rocket.second_stage.payloads[0]);
-  }
-  return (
-    <div>
-      <div className="container text-xl">
-        {isSuccess && (
-          <>
-            <Space direction="vertical">
-              <Title level={1}>{data.mission_name}</Title>
-              <Text>Mission launch in {data.launch_year}</Text>
-              <Text>Launch {data.launch_success ? "Succesfully" : "Fail"}</Text>
-            </Space>
-            <Row>
-              <Col span={12}>
-                <img
-                  style={{ width: "80%" }}
-                  src={data.links.mission_patch}
-                  alt={data.mission_name}
-                />
-              </Col>
-              <Col span={12} style={{ padding: "6rem 0rem" }}>
-                <div className="flex flex-col gap-05 ">
-                  <div>
-                    <Text className="bold mr-1 text-xl">Deatails :</Text>
-                    <Text>{data.details}</Text>
-                  </div>
 
-                  <div>
-                    <Text className="bold mr-1 text-xl">Launch date :</Text>
-                    <Text>{dateFormateFunc(data.launch_date_utc)}</Text>
+  return (
+    <>
+      <div>
+        <div className="container text-xl">
+          {isLoading && (
+            <>
+              <div className="mb-4">
+                <Skeleton paragraph={{ rows: 1 }} />
+              </div>
+              <Row>
+                <Col span={12}>
+                  <div className="center h-full">
+                    <Skeleton.Image active={true} />
                   </div>
-                  <div>
-                    <Text className="bold mr-1 text-xl">Launch site :</Text>
-                    <Text>{data.launch_site.site_name_long}</Text>
-                  </div>
-                  <div>
-                    <Text className="bold mr-1 text-xl">Upcoming :</Text>
-                    <Text>{data.upcoming ? "Yes" : "No"}</Text>
-                  </div>
-                  <div>
-                    <Text className="bold mr-1 text-xl">Rocket name :</Text>
-                    <Text>{data.rocket.rocket_name}</Text>
-                  </div>
-                  <div>
-                    <Text className="bold mr-1 text-xl">
-                      Rocket Nationality :
-                    </Text>
-                    <Text>
-                      {data.rocket.second_stage.payloads &&
-                        data.rocket.second_stage.payloads[0].nationality}
-                    </Text>
-                  </div>
-                  <div>
-                    <Text className="bold mr-1 text-xl">manufacturer :</Text>
-                    <Text>
-                      {data.rocket.second_stage.payloads &&
-                        data.rocket.second_stage.payloads[0].manufacturer}
-                    </Text>
-                  </div>
-                  <div>
-                    <Text className="bold mr-1 text-xl">Customers :</Text>
-                    <Text>
-                      {data.rocket.second_stage.payloads &&
+                </Col>
+                <Col span={12}>
+                  <Skeleton paragraph={{ rows: 8 }} />
+                </Col>
+              </Row>
+            </>
+          )}
+          {isSuccess && (
+            <>
+              <Button className="center gap-05 my-2">
+                <ArrowLeftOutlined />
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  Back to Home
+                </Link>
+              </Button>
+              <div className="flex flex-col mb-4">
+                <Title level={1} className="text-2xl">
+                  {data.mission_name}
+                </Title>
+                <Space direction="horizontal">
+                  <Text>Mission launch in {data.launch_year},</Text>
+                  <Text type="danger">
+                    Launch {data.launch_success ? "Succesfully" : "Fail"}
+                  </Text>
+                </Space>
+              </div>
+              <Row>
+                <Col span={12}>
+                  <img
+                    style={{ width: "80%" }}
+                    src={data.links.mission_patch}
+                    alt={data.mission_name}
+                  />
+                </Col>
+                <Col span={12} style={{ padding: "6rem 0rem 0rem 4rem" }}>
+                  <div className="flex flex-col gap-1 ">
+                    <Line title="Deatails :" data={data.details} />
+
+                    <Line
+                      title="Launch date :"
+                      data={dateFormateFunc(data.launch_date_utc)}
+                    />
+
+                    <Line
+                      title="Launch site :"
+                      data={data.launch_site.site_name_long}
+                    />
+
+                    <Line
+                      title="Upcoming :"
+                      data={data.upcoming ? "Yes" : "No"}
+                    />
+
+                    <div className="flex gap-2">
+                      <Line
+                        title="Rocket name :"
+                        data={data.rocket.rocket_name}
+                      />
+
+                      <Line title="Type :" data={data.rocket.rocket_type} />
+                    </div>
+                    <div className="flex gap-1">
+                      <Line
+                        title="Rocket Nationality :"
+                        data={
+                          data.rocket.second_stage.payloads &&
+                          data.rocket.second_stage.payloads[0].nationality
+                        }
+                      />
+                      <Line
+                        title="manufacturer :"
+                        data={
+                          data.rocket.second_stage.payloads &&
+                          data.rocket.second_stage.payloads[0].manufacturer
+                        }
+                      />
+                    </div>
+                    <Line
+                      data={
+                        data.rocket.second_stage.payloads &&
                         data.rocket.second_stage.payloads[0].customers &&
-                        data.rocket.second_stage.payloads[0].customers[0]}
-                    </Text>
+                        data.rocket.second_stage.payloads[0].customers[0]
+                      }
+                      title="Customers :"
+                    />
+
+                    <div className="flex gap-1 translate-y-2">
+                      <a
+                        style={{ textDecoration: "underline" }}
+                        target="_blank"
+                        href={data.links.article_link}
+                      >
+                        Airticle
+                      </a>
+                      <a
+                        style={{ textDecoration: "underline" }}
+                        target="_blank"
+                        href={data.links.wikipedia}
+                      >
+                        Wikipedia
+                      </a>
+                      <a
+                        style={{ textDecoration: "underline" }}
+                        target="_blank"
+                        href={data.links.video_link}
+                      >
+                        Video
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </Col>
-            </Row>
-          </>
-        )}
+                </Col>
+              </Row>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+      <FooterC />
+    </>
   );
 };
 
