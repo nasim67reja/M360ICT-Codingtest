@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Space, Tag, Typography } from "antd";
-import Meta from "antd/es/card/Meta";
 import { Link } from "react-router-dom";
 import { dateFormateFuncWithOutTime, truncateString } from "../models/Reuse";
 
@@ -24,7 +23,7 @@ const CardC: React.FC<any> = ({ flight }) => {
                      items-center"
         >
           <Tag
-            style={{ alignSelf: "start" }}
+            style={{ alignSelf: "start", marginBottom: "5px" }}
             color={flight.launch_success ? "success" : "error"}
           >
             {flight.launch_success ? "Success" : "Fail"}

@@ -26,6 +26,20 @@ const SingleLaunch = () => {
     num
   );
 
+  const headStyle: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "4rem",
+  };
+
+  const btnStyle: React.CSSProperties = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "0.5rem",
+    margin: "1rem 0 2rem 0",
+  };
+
   return (
     <>
       <div>
@@ -43,32 +57,40 @@ const SingleLaunch = () => {
                     </div>
                   </Col>
                   <Col span={12}>
-                    <Skeleton paragraph={{ rows: 8 }} />
+                    <Skeleton active paragraph={{ rows: 8 }} />
                   </Col>
                 </Row>
               </div>
             </>
           )}
+          {isError && <div>Something went wrong</div>}
           {isSuccess && (
             <>
-              <Button className="center gap-05 my-2">
+              <Button style={btnStyle}>
                 <ArrowLeftOutlined />
                 <Link to="/" style={{ textDecoration: "none" }}>
                   Back to Home
                 </Link>
               </Button>
-              <div className="flex flex-col mb-4">
-                <Title level={1} className="text-2xl">
+              <div style={headStyle}>
+                <Title level={1} style={{ fontSize: "2rem", color: "#555" }}>
                   {data.mission_name}
                 </Title>
-                <Space direction="horizontal">
+                <Space
+                  className="break"
+                  direction="horizontal"
+                  style={{ alignItems: "start" }}
+                >
                   <Text>Mission launch in {data.launch_year},</Text>
-                  <Text type="danger">
-                    Launch {data.launch_success ? "Succesfully" : "Fail"}
+                  <Text>
+                    Launch {data.launch_success ? "Succesfully" : "Fail"}{" "}
+                    {data.launch_success
+                      ? ""
+                      : `(${data.launch_failure_details.reason})`}
                   </Text>
                 </Space>
               </div>
-              <Row>
+              <Row className="break">
                 <Col span={12}>
                   <img
                     style={{ width: "80%" }}

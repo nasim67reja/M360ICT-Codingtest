@@ -36,7 +36,7 @@ const Searching: React.FC = () => {
 
     <AutoComplete
       dropdownMatchSelectWidth={252}
-      style={{ width: 400 }}
+      className="w-400"
       options={arr}
       filterOption={true}
     >

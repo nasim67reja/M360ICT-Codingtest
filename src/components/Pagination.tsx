@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pagination } from "antd";
+import { Pagination, Typography } from "antd";
 import { useGetFlightsQuery } from "../services/flightApi";
 import { Flight } from "../models/flight.model";
 import { Card, Skeleton } from "antd";
@@ -9,6 +9,7 @@ import CardC from "./Card";
 // const PaginationC: React.FC = () => <Pagination onChange={onChange} total={50} />;
 
 const { Meta } = Card;
+const { Text } = Typography;
 
 const PaginationC = () => {
   const [page, setPage] = useState<number>(1);
@@ -16,7 +17,7 @@ const PaginationC = () => {
 
   const filterBy = useSelector((state: any) => state.filter.filter);
 
-  const { data, error, isLoading, isSuccess } = useGetFlightsQuery();
+  const { data, isLoading, isSuccess, isError } = useGetFlightsQuery();
 
   const searchBy = useSelector((state: any) => state.search.search);
 
@@ -54,39 +55,53 @@ const PaginationC = () => {
   return (
     <>
       <div className="container">
-        {isLoading && (
-          <div style={{ minHeight: "100vh", marginTop: "5rem" }}>
-            <Skeleton loading={isLoading} avatar active></Skeleton>
-            <Skeleton loading={isLoading} avatar active></Skeleton>{" "}
-            <Skeleton loading={isLoading} avatar active></Skeleton>
-            <Skeleton loading={isLoading} avatar active></Skeleton>
-            <Skeleton loading={isLoading} avatar active></Skeleton>{" "}
-            <Skeleton loading={isLoading} avatar active></Skeleton>
-          </div>
-        )}
-        {isSuccess && (
-          <div>
+        <div style={{ minHeight: "100vh", marginTop: "5rem" }}>
+          {isLoading && (
             <div className="grid grid-4-cols gap-205">
-              {arr.slice((page - 1) * size, size * page).map((flight, i) => (
-                <CardC key={i} flight={flight} />
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((num, i) => (
+                <div key={i}>
+                  <Skeleton.Image
+                    style={{ marginBottom: "1rem" }}
+                    active={true}
+                  />
+                  <Skeleton active paragraph={{ rows: 4 }} />
+                </div>
               ))}
             </div>
-            <Pagination
-              style={{
-                textAlign: "end",
-                marginTop: "1.5rem",
-                fontSize: "1rem",
-              }}
-              total={arr.length}
-              pageSize={size}
-              current={page}
-              onChange={(page) => setPage(page)}
-              onShowSizeChange={(current: number, size: number) =>
-                setSize(size)
-              }
-            />
-          </div>
-        )}
+          )}
+          {isError && <div>Something went wrong</div>}
+          {isSuccess && (
+            <>
+              {arr.length > 0 ? (
+                <div className="grid grid-4-cols gap-205">
+                  {arr
+                    .slice((page - 1) * size, size * page)
+                    .map((flight, i) => (
+                      <CardC key={i} flight={flight} />
+                    ))}
+                </div>
+              ) : (
+                <div className="center" style={{ minHeight: "65vh" }}>
+                  No Mission Found
+                </div>
+              )}
+              <Pagination
+                style={{
+                  textAlign: "end",
+                  marginTop: "1.5rem",
+                  fontSize: "1rem",
+                }}
+                total={arr.length}
+                pageSize={size}
+                current={page}
+                onChange={(page) => setPage(page)}
+                onShowSizeChange={(current: number, size: number) =>
+                  setSize(size)
+                }
+              />
+            </>
+          )}
+        </div>
       </div>
     </>
   );
