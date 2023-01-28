@@ -16,18 +16,20 @@ body {
 
 /* Header */
 .header {
-  padding: 2rem 0 1.4rem 0;
+  padding: 1.4rem 0 1rem 0;
   margin-bottom: 2rem;
+  font-size: 1rem;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* utility classes */
 .container {
-  max-width: 83.75rem;
+  max-width: 88.75rem;
   padding: 0 2rem;
   margin: 0 auto;
 }
 .shadow {
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
 }
 .ant-card-body {
   padding: 5px;
@@ -59,8 +61,8 @@ body {
 .gap-1 {
   gap: 1rem;
 }
-.gap-2 {
-  gap: 2rem;
+.gap-205 {
+  gap: 2.5rem;
 }
 .gap-3 {
   gap: 3em;
@@ -78,6 +80,9 @@ body {
 }
 
 /* margin */
+.mt-05 {
+  margin-top: 0.5rem;
+}
 .my-2 {
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -115,5 +120,5 @@ a:visited {
 }
 
 .translate-y-2 {
-  transform: translateY(6px);
+  transform: translateY(5px);
 }

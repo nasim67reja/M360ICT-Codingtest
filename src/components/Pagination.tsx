@@ -4,8 +4,7 @@ import { useGetFlightsQuery } from "../services/flightApi";
 import { Flight } from "../models/flight.model";
 import { Card, Skeleton } from "antd";
 import { useSelector } from "react-redux";
-import { truncateString } from "../models/Reuse";
-import { Link } from "react-router-dom";
+import CardC from "./Card";
 
 // const PaginationC: React.FC = () => <Pagination onChange={onChange} total={50} />;
 
@@ -14,7 +13,6 @@ const { Meta } = Card;
 const PaginationC = () => {
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
-  const [loading, setLoading] = useState(false);
 
   const filterBy = useSelector((state: any) => state.filter.filter);
 
@@ -68,35 +66,10 @@ const PaginationC = () => {
         )}
         {isSuccess && (
           <div>
-            <div className="grid grid-4-cols gap-3">
-              {arr
-                .slice((page - 1) * size, size * page)
-                .map((flight: Flight, i: number) => (
-                  <Card
-                    key={i}
-                    className="shadow"
-                    hoverable
-                    bodyStyle={{ padding: "1rem" }}
-                  >
-                    <Link to={`/${flight.flight_number}`}>
-                      <div
-                        className="flex flex-col 
-                    gap-1 items-center"
-                      >
-                        <img
-                          style={{ width: "85%" }}
-                          src={flight.links.mission_patch}
-                          alt={flight.mission_name}
-                        />
-                      </div>
-                      <Meta
-                        title={truncateString(flight.mission_name, 10)}
-                        description="This is the description"
-                      />
-                      <p>Hello world</p>
-                    </Link>
-                  </Card>
-                ))}
+            <div className="grid grid-4-cols gap-205">
+              {arr.slice((page - 1) * size, size * page).map((flight, i) => (
+                <CardC key={i} flight={flight} />
+              ))}
             </div>
             <Pagination
               style={{

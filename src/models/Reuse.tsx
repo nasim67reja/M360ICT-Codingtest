@@ -23,3 +23,19 @@ export const dateFormateFunc = (date: string) => {
   );
   return formatDate;
 };
+
+export const dateFormateFuncWithOutTime = (date: string) => {
+  const now: Date = new Date(date);
+  const options: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+
+  const local: string = navigator.language;
+
+  const formatDate: string = new Intl.DateTimeFormat(local, options).format(
+    now
+  );
+  return formatDate;
+};

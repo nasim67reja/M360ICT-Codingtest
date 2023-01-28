@@ -8,7 +8,7 @@ import { searchActions } from '../store/searchBy';
 import { useDispatch } from 'react-redux';
 
 const Searching: React.FC = () => {
- const dispatch=useDispatch()
+  const dispatch = useDispatch()
 
   const { data, isSuccess } = useGetFlightsQuery();
 
@@ -29,20 +29,21 @@ const Searching: React.FC = () => {
 
 
 
-const onSearch=(value:string)=>{
-  dispatch(searchActions.storeSearch(value))
-}
+  const onSearch = (value: string) => {
+    dispatch(searchActions.storeSearch(value))
+  }
   return (
 
-        <AutoComplete
-          dropdownMatchSelectWidth={252}
-          style={{ width: 400 }}
-          options={arr}
-          filterOption={true}
-          className="shadow"
-        >
-          <Input.Search size="large" placeholder="Search here by rocket name ..." enterButton onSearch={onSearch}/>
-        </AutoComplete>
+    <AutoComplete
+      dropdownMatchSelectWidth={252}
+      style={{ width: 400 }}
+      options={arr}
+      filterOption={true}
+    >
+      <Input.Search
+        className="shadow"
+        size="large" placeholder="Search here by rocket name ..." enterButton onSearch={onSearch} />
+    </AutoComplete>
 
   );
 };

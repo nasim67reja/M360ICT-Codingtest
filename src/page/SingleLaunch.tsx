@@ -32,19 +32,21 @@ const SingleLaunch = () => {
         <div className="container text-xl">
           {isLoading && (
             <>
-              <div className="mb-4">
-                <Skeleton paragraph={{ rows: 1 }} />
+              <div style={{ minHeight: "100vh" }}>
+                <div className="mb-4">
+                  <Skeleton paragraph={{ rows: 1 }} />
+                </div>
+                <Row>
+                  <Col span={12}>
+                    <div className="center h-full">
+                      <Skeleton.Image active={true} />
+                    </div>
+                  </Col>
+                  <Col span={12}>
+                    <Skeleton paragraph={{ rows: 8 }} />
+                  </Col>
+                </Row>
               </div>
-              <Row>
-                <Col span={12}>
-                  <div className="center h-full">
-                    <Skeleton.Image active={true} />
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <Skeleton paragraph={{ rows: 8 }} />
-                </Col>
-              </Row>
             </>
           )}
           {isSuccess && (
